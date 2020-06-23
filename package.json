@@ -1,0 +1,23 @@
+{
+  "name": "f4s-pre-course-exam",
+  "version": "1.0.0",
+  "description": "This exam will include most of the topics you learn during the last weeks, feel free go back to the mini tasks you had and use them for solving this exam. This repository include basic structure for todo list application you can change or modify it. [For more details](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div) The task is to create a todo application by following the requirements",
+  "main": "main.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuySerfaty/f4s-pre-course-exam.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuySerfaty/f4s-pre-course-exam/issues"
+  },
+  "homepage": "https://github.com/GuySerfaty/f4s-pre-course-exam#readme",
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "puppeteer": "^4.0.0"
+  }
+}
