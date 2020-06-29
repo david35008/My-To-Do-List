@@ -20,4 +20,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: node_modules/.bin/jest
+    - name: Run Client Tests
+      run: USER_REPORT=${{ github.actor }} REPO_REPORT=${{ github.repository }} node_modules/.bin/jest

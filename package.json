@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/GuySerfaty/f4s-pre-course-exam#readme",
   "devDependencies": {
+    "@suvelocity/tester": "^1.0.2",
     "jest": "^26.0.1",
     "puppeteer": "^4.0.0"
   }

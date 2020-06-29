@@ -1,19 +1,29 @@
+/**
+ * @jest-environment node
+ */
 const puppeteer = require('puppeteer');
+const full4s = require('@suvelocity/tester');
 
 const path = 'file://' + __dirname + '/src/index.html'
 let page;
 let browser;
 
 const secondTaskText = 'second task input';
-jest.setTimeout(30000);
-describe('Todo Requrments tests', () => {
+jest.setTimeout(10000);
+const projectName = 'Todo App';
+describe(projectName, () => {
   beforeAll(async () => {
     browser = await puppeteer.launch()
     page = await browser.newPage()
     await page.goto(path, { waitUntil: 'networkidle0' })
+    await full4s.beforeAll();
   });
+  afterEach(async () => {
+    await full4s.afterEach(page);
+  })
   afterAll(async () => {
-    await browser.close()
+    await full4s.afterAll(projectName);
+    await browser.close();
   });
   test('The todo list should be empty first', async () => {
     const elements = await page.$$('.todoText');
