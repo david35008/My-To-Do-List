@@ -102,6 +102,6 @@ $ npm run test
 
 
 ## Submitting
- - When your ready to submit run `RECORD_TEST=true npm run test` (Can take up to 3-4 min) that will create `ui-testing-recording.gif` that will show you app during testing session - push this file as well 
+ - When your ready to submit run `RECORD_TEST=true npm run test` (Can take up to 3-4 min) that will create `ui-testing-recording.gif` that will show your app during testing session - push this file as well 
  - Create a Pull Request from the new brunch into master in your duplicated repository
- - add username: f4s-master, email: ? as collaborators to your imported repo. 
+ - add username: f4s-master, email: ? as collaborators to your imported repo.

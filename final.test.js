@@ -10,7 +10,7 @@ let browser;
 
 const secondTaskText = 'second task input';
 jest.setTimeout(10000);
-const projectName = 'Todo App';
+const projectName = 'pre.Todo App';
 describe(projectName, () => {
   beforeAll(async () => {
     browser = await puppeteer.launch()
