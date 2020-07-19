@@ -78,3 +78,99 @@ function cleanUl(the_List) {
         the_List.removeChild(the_List.firstChild);
     };
 };
+
+order_Button.addEventListener('click', dragElement);
+my_Button.addEventListener('click', dragElement);
+
+// Drag and drop element in a list:
+    function dragElement() {
+    const list = document.getElementById('tasksList');
+    let draggingEle;
+    let placeholder;
+    let isDraggingStarted = false;
+
+    // Swap two nodes
+    const swap = function(nodeA, nodeB) {
+        const parentA = nodeA.parentNode;
+        const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
+        nodeB.parentNode.insertBefore(nodeA, nodeB);
+        parentA.insertBefore(nodeB, siblingA);
+    };
+
+    // Check if `nodeA` is above `nodeB`
+    const isAbove = function(nodeA, nodeB) {
+        // Get the bounding rectangle of nodes
+        const rectA = nodeA.getBoundingClientRect();
+        const rectB = nodeB.getBoundingClientRect();
+        return (rectA.top + rectA.height / 2 < rectB.top + rectB.height / 2);
+    };
+
+    // The current position of mouse relative to the dragging element
+    let x = 0;
+    let y = 0;
+
+    const mouseDownHandler = function(e) {
+        draggingEle = e.currentTarget;
+        // draggingEle = draggingEle1.parentNode;
+        
+        // Calculate the mouse position
+        const rect = draggingEle.getBoundingClientRect();
+        x = e.pageX - rect.left;
+        y = e.pageY - rect.top;
+
+        // Attach the listeners to `document`
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+    };
+
+    const mouseMoveHandler = function(e) {
+        const draggingRect = draggingEle.getBoundingClientRect();
+        if (!isDraggingStarted) {
+            isDraggingStarted = true;
+            
+            // for the next element won't move up
+            placeholder = document.createElement('div');
+            placeholder.classList.add('placeholder');
+            draggingEle.parentNode.insertBefore(placeholder, draggingEle.nextSibling);
+            placeholder.style.height = `${draggingRect.height}px`;
+        };
+
+        // Set position for dragging element
+        draggingEle.style.position = 'absolute';
+        draggingEle.style.top = `${e.pageY - y}px`; 
+        draggingEle.style.left = `${e.pageX - x}px`;
+        const prevEle = draggingEle.previousElementSibling;
+        const nextEle = placeholder.nextElementSibling;
+        
+        // move the dragg element to the top
+        if (prevEle && isAbove(draggingEle, prevEle)) {
+            swap(placeholder, draggingEle);
+            swap(placeholder, prevEle);
+            return;
+        }
+
+        // move the dragg element to the bottom
+        if (nextEle && isAbove(nextEle, draggingEle)) {
+            swap(nextEle, placeholder);
+            swap(nextEle, draggingEle);
+        }
+    };
+
+    const mouseUpHandler = function() {
+        placeholder && placeholder.parentNode.removeChild(placeholder);
+        draggingEle.style.removeProperty('top');
+        draggingEle.style.removeProperty('left');
+        draggingEle.style.removeProperty('position');
+        x = null;
+        y = null;
+        draggingEle = null;
+        isDraggingStarted = false;
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    // Query all items
+    [].slice.call(list.getElementsByClassName('todoContainer')).forEach(function(item) {
+        item.addEventListener('mousedown', mouseDownHandler);
+    });
+};
