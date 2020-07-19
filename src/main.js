@@ -9,4 +9,5 @@ function addTask() {
     if (box_Value !== "") {
         the_List.appendChild(row_Create);
     }
+    input_Box.value = "";
 }
