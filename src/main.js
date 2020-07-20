@@ -4,6 +4,22 @@ const the_List = document.getElementById('tasksList');
 const priority_Choose = document.getElementById('prioritySelector');
 const do_List = [];
 
+
+const runChanges = document.getElementById('runChanges');
+runChanges.addEventListener('click', getItemStored);
+function getItemStored() {
+    do_List.splice(0, do_List.length);
+    cleanUl(the_List);
+   const remper = JSON.parse(localStorage.getItem("mytasks"))
+    for (let i = 0; i < remper.length; i++) {
+        do_List.push(remper[i]);
+    }
+   if (do_List[0] != undefined){
+       cleanUl(the_List);
+    print_tasks();
+    dragElement();
+   };
+  };
 // add event to the "add" button:
 my_Button.addEventListener('click', addTask);
 
@@ -64,11 +80,11 @@ function print_line(obj) {
 };
 
 // add div child:
-function addChild(parent, className, text) {
+function addChild(parent, className, box_Value) {
     let div_Create = document.createElement('div');
     parent.appendChild(div_Create);
-    div_Create.className = className;
-    div_Create.textContent = text;
+    div_Create.className = className ;
+    div_Create.textContent = box_Value ;
     return div_Create;
 };
 
@@ -133,6 +149,13 @@ function cleartasks() {
 
 };
 
+const svaeChanges = document.getElementById('svaeChanges');
+svaeChanges.addEventListener('click', svaechanges);
+function svaechanges() {
+    if (do_List[0] == undefined){
+        localStorage.clear();
+}else {localStorage.setItem("mytasks",JSON.stringify(do_List))};
+}
 // Drag and drop element in a list:
 function dragElement() {
     const list = document.getElementById('tasksList');
