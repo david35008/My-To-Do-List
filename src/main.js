@@ -18,8 +18,9 @@ function addTask() {
             box_Value: box_Value
         };
         do_List.push(obj);
-        print_line(obj);
+        print_tasks();
         document.getElementById('counter').textContent = do_List.length;
+        dragElement();
         input_Box.value = "";
         priority_Choose.value = "--";
     };
@@ -63,11 +64,17 @@ order_Button.addEventListener('click', orderList);
 // order the tasks list by priority:
 function orderList() {
     do_List.sort(function (a, b) {
-        return +a.priority_Num - +b.priority_Num;
+        return +b.priority_Num - +a.priority_Num;
     });
+    print_tasks();
+    dragElement();
+};
+
+// clean the list on display and add the new list to display.
+function print_tasks() {
     cleanUl(the_List);
 
-    for (let i = do_List.length - 1; i >= 0; i--) {
+    for (let i = 0; i < do_List.length; i++) {
         print_line(do_List[i]);
     };
 };
@@ -79,18 +86,31 @@ function cleanUl(the_List) {
     };
 };
 
-order_Button.addEventListener('click', dragElement);
-my_Button.addEventListener('click', dragElement);
+function copy_toarray() {
+    do_List.splice(0, do_List.length)
+    listItemsElements = document.getElementById('tasksList').children;
+    for (let i = 0; i < listItemsElements.length; i++) {
+        const element = listItemsElements[i];
 
+        let obj = {
+            priority_Num: element.children[0].textContent,
+            date: element.children[1].textContent,
+            box_Value: element.children[2].textContent
+        };
+        do_List.push(obj);
+
+    };
+
+};
 // Drag and drop element in a list:
-    function dragElement() {
+function dragElement() {
     const list = document.getElementById('tasksList');
     let draggingEle;
     let placeholder;
     let isDraggingStarted = false;
 
     // Swap two nodes
-    const swap = function(nodeA, nodeB) {
+    const swap = function (nodeA, nodeB) {
         const parentA = nodeA.parentNode;
         const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
         nodeB.parentNode.insertBefore(nodeA, nodeB);
@@ -98,7 +118,7 @@ my_Button.addEventListener('click', dragElement);
     };
 
     // Check if `nodeA` is above `nodeB`
-    const isAbove = function(nodeA, nodeB) {
+    const isAbove = function (nodeA, nodeB) {
         // Get the bounding rectangle of nodes
         const rectA = nodeA.getBoundingClientRect();
         const rectB = nodeB.getBoundingClientRect();
@@ -109,10 +129,10 @@ my_Button.addEventListener('click', dragElement);
     let x = 0;
     let y = 0;
 
-    const mouseDownHandler = function(e) {
+    const mouseDownHandler = function (e) {
         draggingEle = e.currentTarget;
         // draggingEle = draggingEle1.parentNode;
-        
+
         // Calculate the mouse position
         const rect = draggingEle.getBoundingClientRect();
         x = e.pageX - rect.left;
@@ -123,11 +143,11 @@ my_Button.addEventListener('click', dragElement);
         document.addEventListener('mouseup', mouseUpHandler);
     };
 
-    const mouseMoveHandler = function(e) {
+    const mouseMoveHandler = function (e) {
         const draggingRect = draggingEle.getBoundingClientRect();
         if (!isDraggingStarted) {
             isDraggingStarted = true;
-            
+
             // for the next element won't move up
             placeholder = document.createElement('div');
             placeholder.classList.add('placeholder');
@@ -137,11 +157,11 @@ my_Button.addEventListener('click', dragElement);
 
         // Set position for dragging element
         draggingEle.style.position = 'absolute';
-        draggingEle.style.top = `${e.pageY - y}px`; 
+        draggingEle.style.top = `${e.pageY - y}px`;
         draggingEle.style.left = `${e.pageX - x}px`;
         const prevEle = draggingEle.previousElementSibling;
         const nextEle = placeholder.nextElementSibling;
-        
+
         // move the dragg element to the top
         if (prevEle && isAbove(draggingEle, prevEle)) {
             swap(placeholder, draggingEle);
@@ -156,7 +176,8 @@ my_Button.addEventListener('click', dragElement);
         }
     };
 
-    const mouseUpHandler = function() {
+    const mouseUpHandler = function () {
+        // if ( placeholder.parentNode !== null ){}
         placeholder && placeholder.parentNode.removeChild(placeholder);
         draggingEle.style.removeProperty('top');
         draggingEle.style.removeProperty('left');
@@ -167,10 +188,13 @@ my_Button.addEventListener('click', dragElement);
         isDraggingStarted = false;
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
+        copy_toarray();
+        print_tasks();
+        dragElement();
     };
 
     // Query all items
-    [].slice.call(list.getElementsByClassName('todoContainer')).forEach(function(item) {
+    [].slice.call(list.getElementsByClassName('todoContainer')).forEach(function (item) {
         item.addEventListener('mousedown', mouseDownHandler);
     });
 };
