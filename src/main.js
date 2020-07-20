@@ -2,24 +2,19 @@ const my_Button = document.getElementById('addButton');
 const input_Box = document.getElementById('textInput');
 const the_List = document.getElementById('tasksList');
 const priority_Choose = document.getElementById('prioritySelector');
-const do_List = [];
+let do_List = [];
 
-
+// add the tasks to display from local storage:
 const runChanges = document.getElementById('runChanges');
 runChanges.addEventListener('click', getItemStored);
 function getItemStored() {
-    do_List.splice(0, do_List.length);
-    cleanUl(the_List);
-   const remper = JSON.parse(localStorage.getItem("mytasks"))
-    for (let i = 0; i < remper.length; i++) {
-        do_List.push(remper[i]);
-    }
-   if (do_List[0] != undefined){
-       cleanUl(the_List);
-    print_tasks();
-    dragElement();
-   };
-  };
+    let r = confirm("All your current tasks will be deleted.\nare you sure?");
+    if (r == true) {
+        do_List = JSON.parse(localStorage.getItem("mytasks"))
+        print_tasks();
+        addDraggingOption();
+    };
+};
 // add event to the "add" button:
 my_Button.addEventListener('click', addTask);
 
@@ -31,11 +26,12 @@ function addTask() {
         let obj = {
             priority_Num: priority_Num,
             date: formatDate(new Date()),
-            box_Value: box_Value
+            box_Value: box_Value,
+            checked: false
         };
         do_List.push(obj);
         print_tasks();
-        dragElement();
+        addDraggingOption();
         input_Box.value = "";
         priority_Choose.value = "--";
     };
@@ -66,25 +62,46 @@ function print_line(obj) {
     addChild(div_Create1, "todoPriority", obj.priority_Num);
     addChild(div_Create1, "todoCreatedAt", obj.date);
     addChild(div_Create1, "todoText", obj.box_Value);
+
+    const checkbox = document.createElement('input')
+    checkbox.type = "checkbox";
+    checkbox.className = "checkbox";
+    checkbox.checked = obj.checked;
+    div_Create1.appendChild(checkbox);
+    applyStyle(checkbox, div_Create1);
+
+    checkbox.onclick = () => {
+        applyStyle(checkbox, div_Create1);
+        copy_toarray();
+    };
     const newLocal = document.createElement('button');
     newLocal.className = "delButton";
-    newLocal.textContent = "delete";
+    newLocal.type = "submit";
+    newLocal.textContent = "x";
     div_Create1.appendChild(newLocal);
     newLocal.onclick = () => {
         newLocal.parentElement.remove();
         copy_toarray();
         print_tasks();
-        dragElement();
+        addDraggingOption();
     };
-
 };
+
+function applyStyle(checkbox, div_Create1) {
+    if (checkbox.checked == true) {
+        div_Create1.style = "text-decoration: line-through;";
+    }
+    else {
+        div_Create1.style = "";
+    }
+}
 
 // add div child:
 function addChild(parent, className, box_Value) {
     let div_Create = document.createElement('div');
     parent.appendChild(div_Create);
-    div_Create.className = className ;
-    div_Create.textContent = box_Value ;
+    div_Create.className = className;
+    div_Create.textContent = box_Value;
     return div_Create;
 };
 
@@ -98,7 +115,7 @@ function orderList() {
         return +b.priority_Num - +a.priority_Num;
     });
     print_tasks();
-    dragElement();
+    addDraggingOption();
 
 };
 
@@ -129,7 +146,8 @@ function copy_toarray() {
         let obj = {
             priority_Num: element.children[0].textContent,
             date: element.children[1].textContent,
-            box_Value: element.children[2].textContent
+            box_Value: element.children[2].textContent,
+            checked: element.children[3].checked
         };
         do_List.push(obj);
 
@@ -149,15 +167,16 @@ function cleartasks() {
 
 };
 
+// add to the rasks to the local storage:
 const svaeChanges = document.getElementById('svaeChanges');
 svaeChanges.addEventListener('click', svaechanges);
 function svaechanges() {
-    if (do_List[0] == undefined){
+    if (do_List[0] == undefined) {
         localStorage.clear();
-}else {localStorage.setItem("mytasks",JSON.stringify(do_List))};
+    } else { localStorage.setItem("mytasks", JSON.stringify(do_List)) };
 }
 // Drag and drop element in a list:
-function dragElement() {
+function addDraggingOption() {
     const list = document.getElementById('tasksList');
     let draggingEle;
     let placeholder;
@@ -185,8 +204,8 @@ function dragElement() {
 
     // handling the mouse click down event:
     const mouseDownHandler = function (e) {
-        if (e.target.className == "delButton") {
-            e.preventDefault();
+        if (e.target.className == "delButton" || e.target.className == "checkbox") {
+
             return;
         }
         draggingEle = e.currentTarget;
@@ -195,7 +214,7 @@ function dragElement() {
         // Calculate the mouse position
         const rect = draggingEle.getBoundingClientRect();
         x = e.pageX - rect.left;
-        y = e.pageY - rect.top;
+        y = e.pageY - rect.top-145;
 
         // Attach the listeners to `document`
         document.addEventListener('mousemove', mouseMoveHandler);
@@ -250,7 +269,7 @@ function dragElement() {
         document.removeEventListener('mouseup', mouseUpHandler);
         copy_toarray();
         print_tasks();
-        dragElement();
+        addDraggingOption();
     };
 
     // Query all items
