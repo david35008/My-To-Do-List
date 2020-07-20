@@ -39,9 +39,10 @@ function formatDate(date) {
     return dateStr;
 };
 
-Element.prototype.remove = function() {
+// create remove node function:
+Element.prototype.remove = function () {
     this.parentElement.removeChild(this);
-}
+};
 
 // add line to display:
 function print_line(obj) {
@@ -51,15 +52,15 @@ function print_line(obj) {
     addChild(div_Create1, "todoText", obj.box_Value);
     const newLocal = document.createElement('button');
     newLocal.className = "delButton";
-    newLocal.textContent = "delete"
+    newLocal.textContent = "delete";
     div_Create1.appendChild(newLocal);
-    newLocal.onclick=()=>{
+    newLocal.onclick = () => {
         newLocal.parentElement.remove();
         copy_toarray();
         print_tasks();
         dragElement();
     };
-    
+
 };
 
 // add div child:
@@ -82,7 +83,7 @@ function orderList() {
     });
     print_tasks();
     dragElement();
-    
+
 };
 
 // clean the list on display and add the new list to display.
@@ -102,6 +103,7 @@ function cleanUl(the_List) {
     };
 };
 
+// copy the display to the do_List array:
 function copy_toarray() {
     do_List.splice(0, do_List.length)
     listItemsElements = document.getElementById('tasksList').children;
@@ -118,6 +120,19 @@ function copy_toarray() {
     };
 
 };
+
+// add event to the "Clear All" button:
+const clearbutton = document.getElementById('clearButton');
+clearbutton.addEventListener('click', cleartasks);
+function cleartasks() {
+    var r = confirm("are you sure?");
+    if (r == true) {
+        do_List.splice(0, do_List.length);
+        print_tasks();
+    };
+
+};
+
 // Drag and drop element in a list:
 function dragElement() {
     const list = document.getElementById('tasksList');
@@ -145,8 +160,9 @@ function dragElement() {
     let x = 0;
     let y = 0;
 
+    // handling the mouse click down event:
     const mouseDownHandler = function (e) {
-        if (e.target.className=="delButton") {
+        if (e.target.className == "delButton") {
             e.preventDefault();
             return;
         }
@@ -163,6 +179,7 @@ function dragElement() {
         document.addEventListener('mouseup', mouseUpHandler);
     };
 
+    // handling the mouse move event:
     const mouseMoveHandler = function (e) {
         const draggingRect = draggingEle.getBoundingClientRect();
         if (!isDraggingStarted) {
@@ -195,7 +212,7 @@ function dragElement() {
             swap(nextEle, draggingEle);
         }
     };
-
+    // handling the mouse click up event:
     const mouseUpHandler = function () {
         // if ( placeholder.parentNode !== null ){}
         placeholder && placeholder.parentNode.removeChild(placeholder);
