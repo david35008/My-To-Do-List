@@ -1,0 +1,88 @@
+body {
+    text-align:center;
+    height: 100%;
+    width: 100%;
+    
+    background-image: url("https://previews.123rf.com/images/wbraga/wbraga1802/wbraga180200024/96272923-silhouette-of-a-hacker-on-a-background-with-binary-code-and-lights-hacking-of-a-computer-system-thef.jpg");
+}
+#view-section  {
+    width: 550px;
+    height: 800px;
+    margin: auto;
+    
+    
+    background-image: url("http://clipart-library.com/images_k/notepad-transparent-background/notepad-transparent-background-6.png");
+   }
+h1 {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    color: aliceblue;
+    font-size: 100px;
+}
+#tasksList {
+    padding-top: 90px;
+    width: 85%;
+}
+.todoContainer {
+   position: relative;
+
+    clear: both;
+    
+    border-bottom: 1px solid black;
+    display: flex;
+  
+    cursor: move;
+    user-select: none;
+   
+}
+.todoContainer div {
+    flex: 1;
+}
+.todoPriority {
+    margin: 1px 0px 0px 0px;
+    padding: 0px 0px 0px 25px;
+    position: absolute;
+    font-size: 17px;
+    
+}
+.todoCreatedAt {
+    margin: 2px 0px 0px 0px;
+    padding: 4px 0px 0px 45px;
+    position: absolute;
+    float: left;
+    font-size: 10px;
+    
+}
+.todoText {
+   
+    margin: 2px 35px 0px 0px;
+    padding: 0px 0px 0px 135px;
+
+}
+.delButton {
+    position: absolute;
+    margin: 5px 0px 0px 450px;
+    padding: 0px 0px 0px 0px; 
+    background-color: aliceblue;  
+    cursor:pointer;
+    width: 13px;
+    height: 13px;
+    font-size: 10px;
+    text-size-adjust: ;
+  
+}
+.checkbox {
+    position: absolute;
+    margin: 5px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+p {
+    
+    color: black;
+    font-size: 50px; 
+}
+.placeholder {
+    
+    border: 2px dashed #cbd5e0;
+    margin-bottom: 1rem;
+}
