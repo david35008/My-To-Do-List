@@ -19,7 +19,6 @@ function addTask() {
         };
         do_List.push(obj);
         print_tasks();
-        document.getElementById('counter').textContent = do_List.length;
         dragElement();
         input_Box.value = "";
         priority_Choose.value = "--";
@@ -40,12 +39,27 @@ function formatDate(date) {
     return dateStr;
 };
 
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+
 // add line to display:
 function print_line(obj) {
     const div_Create1 = addChild(the_List, "todoContainer");
     addChild(div_Create1, "todoPriority", obj.priority_Num);
     addChild(div_Create1, "todoCreatedAt", obj.date);
     addChild(div_Create1, "todoText", obj.box_Value);
+    const newLocal = document.createElement('button');
+    newLocal.className = "delButton";
+    newLocal.textContent = "delete"
+    div_Create1.appendChild(newLocal);
+    newLocal.onclick=()=>{
+        newLocal.parentElement.remove();
+        copy_toarray();
+        print_tasks();
+        dragElement();
+    };
+    
 };
 
 // add div child:
@@ -68,6 +82,7 @@ function orderList() {
     });
     print_tasks();
     dragElement();
+    
 };
 
 // clean the list on display and add the new list to display.
@@ -77,6 +92,7 @@ function print_tasks() {
     for (let i = 0; i < do_List.length; i++) {
         print_line(do_List[i]);
     };
+    document.getElementById('counter').textContent = do_List.length;
 };
 
 // remove all child nodes of a list:
@@ -130,6 +146,10 @@ function dragElement() {
     let y = 0;
 
     const mouseDownHandler = function (e) {
+        if (e.target.className=="delButton") {
+            e.preventDefault();
+            return;
+        }
         draggingEle = e.currentTarget;
         // draggingEle = draggingEle1.parentNode;
 
