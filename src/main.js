@@ -213,7 +213,7 @@ function addDraggingOption() {
         // Calculate the mouse position
         const rect = draggingEle.getBoundingClientRect();
         x = e.pageX - rect.left;
-        y = e.pageY - rect.top-145;
+        y = e.pageY - rect.top;
 
         // Attach the listeners to "document"
         document.addEventListener('mousemove', mouseMoveHandler);
