@@ -3,8 +3,8 @@ let toDoList = [];
 
 // Load the document changes from the local storage
 function getItemStored() {
-    if (JSON.parse(localStorage.getItem("mytasks"))[0] !== undefined ) {
-    let reply = confirm("All your current tasks will be deleted.\nare you sure?");
+    if (JSON.parse(localStorage.getItem("mytasks"))[0] !== undefined) {
+        let reply = confirm("All your current tasks will be deleted.\nare you sure?");
         if (reply == true) {
             toDoList = JSON.parse(localStorage.getItem("mytasks"));
             refreshDisplay();
@@ -170,7 +170,7 @@ clearbutton.addEventListener('click', cleartasks);
 function svaechanges() {
     if (toDoList[0] == undefined) {
         localStorage.clear();
-    } else { 
+    } else {
         localStorage.setItem("mytasks", JSON.stringify(toDoList));
     };
 };
@@ -215,7 +215,7 @@ function addDraggingOption() {
         // Calculate the mouse position
         const rect = draggingEle.getBoundingClientRect();
         x = e.pageX - rect.left;
-        y = e.pageY - rect.top-145;
+        y = e.pageY - rect.top;
 
         // Attach the listeners to "document"
         document.addEventListener('mousemove', mouseMoveHandler);
