@@ -3,10 +3,12 @@ let toDoList = [];
 
 // Load the document changes from the local storage
 function getItemStored() {
+    if (JSON.parse(localStorage.getItem("mytasks"))[0] !== undefined ) {
     let reply = confirm("All your current tasks will be deleted.\nare you sure?");
-    if (reply == true) {
-        toDoList = JSON.parse(localStorage.getItem("mytasks"));
-        refreshDisplay();
+        if (reply == true) {
+            toDoList = JSON.parse(localStorage.getItem("mytasks"));
+            refreshDisplay();
+        };
     };
 };
 // add button to load changes
@@ -213,7 +215,7 @@ function addDraggingOption() {
         // Calculate the mouse position
         const rect = draggingEle.getBoundingClientRect();
         x = e.pageX - rect.left;
-        y = e.pageY - rect.top;
+        y = e.pageY - rect.top-145;
 
         // Attach the listeners to "document"
         document.addEventListener('mousemove', mouseMoveHandler);
