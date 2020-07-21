@@ -4,10 +4,14 @@ This repository includes a basic skeleton with automated tests, use it for you s
 In this project you will create a Todo List Web Application, in which the user can store prioritized _todo tasks_ and view/sort that list
 
 
-Goal (only functionality):
+Goal (only functionality)
 
-![Add todo task](./readme-files/basic-todo.gif)
 
+the gif: https://github.com/david35008/my-to-do/blob/My-work/ui-testing-recording.gif?raw=true
+
+ my video: https://drive.google.com/file/d/1W3vW2GJ8QRdwMOKSk1r_0mVKSWDSinqp/view
+ 
+ the vercel app: https://my-to-do-try-1-aczpf3dop.vercel.app/
 
 
 ## Instructions
@@ -108,8 +112,10 @@ $ npm run test
 ## Submitting
  - When you are ready to submit run on windows `$env:RECORD_TEST='true'; npm run test`, on mac `RECORD_TEST=true npm run test` (Can take up to 3-4 min) that will create `ui-testing-recording.gif` that will show your app during testing session - push this file as well
  - Add `ui-testing-recording.gif` to the README.md file under this section, if you want you can add another gif if you feel the auto-generated one not beautiful enough
+ the gif: https://github.com/david35008/my-to-do/blob/My-work/ui-testing-recording.gif?raw=true
  - Record a 5 min selfie video, describe yourself in a few words, talk about the project you submit - try to explain how your app works. Think about this video as an interview
  - Upload the 5 min video to the cloud (google drive) and add here (README.md) the public link for the video (can be located under the gif)
+ my video: https://drive.google.com/file/d/1W3vW2GJ8QRdwMOKSk1r_0mVKSWDSinqp/view
  - [Create a Pull Request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) from the new brunch you created in the Instructions into master in your duplicated repository
  - add Github usernames: GuySerfaty, fainir and tomeryp as [collaborators](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository) to your imported repo.
  - Add link to the PR you created in your private repo [here](https://docs.google.com/spreadsheets/d/1P9_YDGqIqmV10fvTmIXc_AGV0_ycI2aBFo2h5zprUMI/edit#gid=1903529310), fill the other details
