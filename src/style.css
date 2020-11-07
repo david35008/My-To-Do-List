@@ -14,10 +14,11 @@ body {
 }
 
 #view-section {
-    width: 550px;
-    height: 800px;
+    width: 480px;
+    min-height: 700px;
     margin: auto;
-    background-image: url("http://clipart-library.com/images_k/notepad-transparent-background/notepad-transparent-background-6.png");
+    background-image: url("/readme-files/boeard.png");
+    background-repeat: no-repeat;
 }
 
 h1 {
@@ -146,7 +147,7 @@ h1 {
 
 .delButton {
     position: absolute;
-    margin: 0px 0px 0px 450px;
+    margin: 0px 0px 0px 390px;
     background-image: url("https://e7.pngegg.com/pngimages/616/37/png-clipart-trash-can-illustration-computer-icons-icon-design-delete-button-miscellaneous-text.png");
     background-size: 100%;
     border: none;
