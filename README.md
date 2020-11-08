@@ -1,4 +1,7 @@
 # ![Scale-Up Velocity](./readme-files/logo-main.png)   Pre Course Project - Todo List
+
+## My first javascript project.
+
 This project include Todo List Web Application, in which the user can store prioritized _todo tasks_ and view/sort that list
 
 the gif: 
